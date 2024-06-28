@@ -1,3 +1,5 @@
+USE [master]
+GO
 RESTORE DATABASE [AdventureWorks2022]
 FROM DISK = '/usr/src/app/AdventureWorks2022.bak'
 WITH
@@ -6,4 +8,16 @@ WITH
     FILE = 1,
     NOUNLOAD,
     STATS = 5;
+GO
+
+USE [AdventureWorks2022]
+CREATE LOGIN [etl] WITH PASSWORD='demopass', DEFAULT_DATABASE=[AdventureWorks2022], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF;
+GO
+CREATE USER [etl] FOR LOGIN [etl]
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [etl]
+GO
+USE [master]
+GO
+GRANT CONNECT SQL TO [etl]
 GO

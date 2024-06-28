@@ -1,2 +1,2 @@
-/usr/src/app/import-data.sh &
+/usr/src/app/init.sh &
 /opt/mssql/bin/sqlservr
