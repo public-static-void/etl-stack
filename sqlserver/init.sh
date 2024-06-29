@@ -1,10 +1,14 @@
-for i in {1..99}; do
-  /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD}" -d master -i init.sql
+for i in {1..60}; do
+  /opt/mssql-tools/bin/sqlcmd -S localhost -U "${SA_USER}" -P "${SA_PASSWORD}" -d master -i init.sql
   if [ $? -eq 0 ]; then
+    echo "*************************"
     echo "initialization completed"
+    echo "*************************"
     break
   else
+    echo "*************************"
     echo "not ready yet..."
-    sleep 1
+    echo "*************************"
+    sleep 5
   fi
 done
