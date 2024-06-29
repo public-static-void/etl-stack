@@ -15,10 +15,13 @@
     PGADMIN_DEFAULT_PASSWORD=pgadmin
     PGA_PORT=5050
 
-    SA_USER=sauser
+    SA_USER=sa
     SA_PASSWORD=SQLserver22!
     SA_PORT=1433
     MSSQL_PID=Developer
+
+    ETL_USER=etl
+    ETL_PASS=ETLpass123!
 
 ###### Put them in an .env file in the root directory of the project, set them temporarily in the command line, e.g. export VAR=VAL, or prepend them directly to docker-compose, e.g. VAR=VAL docker-compose up.
 
