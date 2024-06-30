@@ -26,7 +26,8 @@ ETL_PASS = os.environ["ETL_PASS"]
 PG_PORT = os.environ["PG_PORT"]
 SA_PORT = os.environ["SA_PORT"]
 DRIVER = "{ODBC Driver 18 for SQL Server}"
-DATABASE = "AdventureWorksDW2022"
+SA_DB = "AdventureWorksDW2022"
+PG_DB = "AdventureWorksDW2022PY"
 SA_SERVER = "sqlserver"
 PG_SERVER = "postgres"
 
@@ -40,7 +41,7 @@ def init_src_conn() -> sqlalchemy.engine.base.Engine:
     sqlalchemy.engine.base.Engine
         Connection to the source DB.
     """
-    conn_str = f"DRIVER={DRIVER};SERVER={SA_SERVER};PORT={SA_PORT};DATABASE={DATABASE};UID={ETL_USER};PWD={ETL_PASS};TrustServerCertificate=yes"
+    conn_str = f"DRIVER={DRIVER};SERVER={SA_SERVER};PORT={SA_PORT};DATABASE={SA_DB};UID={ETL_USER};PWD={ETL_PASS};TrustServerCertificate=yes"
     conn_url = URL.create("mssql+pyodbc", query={"odbc_connect": conn_str})
     src_engine = create_engine(conn_url)
     return src_engine
@@ -56,7 +57,7 @@ def init_dst_conn() -> sqlalchemy.engine.base.Engine:
         Connection to the destination DB.
     """
     conn_url = (
-        f"postgresql://{ETL_USER}:{ETL_PASS}@{PG_SERVER}:{PG_PORT}/{DATABASE}"
+        f"postgresql://{ETL_USER}:{ETL_PASS}@{PG_SERVER}:{PG_PORT}/{PG_DB}"
     )
     src_engine = create_engine(conn_url)
     return src_engine
