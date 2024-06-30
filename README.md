@@ -1,6 +1,6 @@
-# Modern ETL Stack Tutorial
+# Modern ETL Stack
 
-## Moving data from SQLServer to Postgres using Airflow
+## Simple ETL Pipeline moving data from SQLServer to Postgres using Airflow and performing some data manipulation
 
 ### How to run:
 
