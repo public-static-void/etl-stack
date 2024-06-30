@@ -1,6 +1,6 @@
 # Modern ETL Stack Tutorial
 
-## Moving data from SQLServer to Postgres using Airbyte
+## Moving data from SQLServer to Postgres using Airflow
 
 ### How to run:
 
@@ -22,6 +22,11 @@
 
     ETL_USER=etl
     ETL_PASS=ETLpass123!
+
+    AIRFLOW_UID=1000
+    AIRFLOW_PROJ_DIR=./airflow
+    AIRFLOW_PORT=9099
+    FLOWER_PORT=5559
 
 ###### Put them in an .env file in the root directory of the project, set them temporarily in the command line, e.g. export VAR=VAL, or prepend them directly to docker-compose, e.g. VAR=VAL docker-compose up.
 
