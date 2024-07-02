@@ -36,8 +36,16 @@
 
 ##### How to stop:
 
+    docker-compose stop
+
+##### How to purge containers and networks:
+
     docker-compose down
 
 ##### How to purge volumes:
 
     docker-compose down --volumes
+
+##### How to purge images:
+
+    docker-compose down --rmi
