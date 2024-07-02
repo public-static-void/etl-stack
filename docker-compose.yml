@@ -59,6 +59,10 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
     AIRFLOW__CORE__LOAD_EXAMPLES: "true"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+    AIRFLOW_VAR_ETL_USER: ${ETL_USER}
+    AIRFLOW_VAR_ETL_PASS: ${ETL_PASS}
+    AIRFLOW_VAR_PG_PORT: ${PG_PORT}
+    AIRFLOW_VAR_SA_PORT: ${SA_PORT}
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
@@ -160,6 +164,7 @@ services:
       retries: 100
 
   etl:
+    container_name: modern-stack-etl
     build: ./etl
     restart: on-failure
     networks:
@@ -176,6 +181,7 @@ services:
         condition: service_healthy
 
   airflow-postgres:
+    container_name: modern-stack-airflow-postgres
     image: postgres:13
     environment:
       POSTGRES_USER: airflow
@@ -193,6 +199,7 @@ services:
     restart: always
 
   airflow-redis:
+    container_name: modern-stack-airflow-redis
     # Redis is limited to 7.2-bookworm due to licencing change
     # https://redis.io/blog/redis-adopts-dual-source-available-licensing/
     image: redis:7.2-bookworm
@@ -208,6 +215,7 @@ services:
     restart: always
 
   airflow-webserver:
+    container_name: modern-stack-airflow-webserver
     <<: *airflow-common
     command: webserver
     ports:
@@ -226,6 +234,7 @@ services:
         condition: service_completed_successfully
 
   airflow-scheduler:
+    container_name: modern-stack-airflow-scheduler
     <<: *airflow-common
     command: scheduler
     networks:
@@ -242,6 +251,7 @@ services:
         condition: service_completed_successfully
 
   airflow-worker:
+    container_name: modern-stack-airflow-worker
     <<: *airflow-common
     command: celery worker
     networks:
@@ -266,6 +276,7 @@ services:
         condition: service_completed_successfully
 
   airflow-triggerer:
+    container_name: modern-stack-airflow-triggerer
     <<: *airflow-common
     command: triggerer
     networks:
@@ -286,6 +297,7 @@ services:
         condition: service_completed_successfully
 
   airflow-init:
+    container_name: modern-stack-airflow-init
     <<: *airflow-common
     entrypoint: /bin/bash
     # yamllint disable rule:line-length
@@ -357,6 +369,7 @@ services:
         condition: service_healthy
 
   airflow-cli:
+    container_name: modern-stack-airflow-cli
     <<: *airflow-common
     profiles:
       - debug
@@ -375,6 +388,7 @@ services:
   # or by explicitly targeted on the command line e.g. docker-compose up flower.
   # See: https://docs.docker.com/compose/profiles/
   flower:
+    container_name: modern-stack-airflow-flower
     <<: *airflow-common
     command: celery flower
     profiles:
