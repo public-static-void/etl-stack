@@ -126,6 +126,19 @@ def transform(
 
 
 def tf_product(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform data for DimProduct.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Source data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Transformed data.
+    """
     df = df[
         [
             "ProductKey",
@@ -185,6 +198,19 @@ def tf_product(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def tf_product_category(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform data for DimProductCategory
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Source data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Transformed data.
+    """
     df = df[
         [
             "ProductCategoryKey",
@@ -199,6 +225,19 @@ def tf_product_category(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def tf_product_subcategory(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Transform data for DimProductSubcategory
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Source data.
+
+    Returns
+    -------
+    pd.DataFrame
+        Transformed data.
+    """
     df = df[
         [
             "ProductSubcategoryKey",
@@ -207,7 +246,6 @@ def tf_product_subcategory(df: pd.DataFrame) -> pd.DataFrame:
             "ProductCategoryKey",
         ]
     ]
-    # Rename columns with rename function
     df = df.rename(
         columns={"EnglishProductSubcategoryName": "ProductSubcategoryName"}
     )
